@@ -1,29 +1,38 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { default: axios } = require('axios');
 
 const app = express();
+const apiKey = process.env.API_KEY;
 
 app.use(cors());
 
 app.get('/api/hello', async (req, res) => {
   const visitor_name = req.query.visitor_name || 'Guest';
-  const client_ip = req.socket.remoteAddress;
+  const client_ip =
+    req.headers['x-forwarded-for'].split(',')[0].trim() ||
+    req.socket.remoteAddress;
 
   try {
     const geoResponse = await axios.get(`https://ipapi.co/${client_ip}/json/`);
     const { city } = geoResponse.data;
 
-    const greeting = `Hello, ${visitor_name}! The temperature is this degrees Celsius in ${city}`;
+    const tempResponse = await axios.get(
+      `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`
+    );
+    const { temp_c } = tempResponse.data.current;
 
-    console.log(visitor_name, client_ip, city);
+    const greeting = `Hello, ${visitor_name}! The temperature is ${temp_c} degrees Celsius in ${city}`;
+
+    // console.log(visitor_name, client_ip, city);
     res.json({
       client_ip: client_ip,
       location: city,
       greeting: greeting,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 });

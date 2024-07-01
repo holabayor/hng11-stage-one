@@ -2,7 +2,7 @@
 
 A basic web server in Node.js that exposes an API endpoint that conforms to the criteria below:
 
-Endpoint: `[GET] <example.com>/api/hello?visitor_name="Mark"` (where <example.com> is your server origin)
+Endpoint: `[GET] <example.com>/api/hello?visitor_name=Mark` (where <example.com> is your server origin)
 
 Response:
 
