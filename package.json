@@ -1,0 +1,22 @@
+{
+  "name": "hng11-stage-one",
+  "version": "1.0.0",
+  "description": "A simple server with an endpoint that returns basic info",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hng11",
+    "node.js",
+    "backend"
+  ],
+  "author": "Aanuoluwapo Liasu",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
