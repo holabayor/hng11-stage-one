@@ -9,6 +9,7 @@ app.use(cors());
 app.get('/api/hello', async (req, res) => {
   const visitor_name = req.query.visitor_name || 'Guest';
   const client_ip = req.ip;
+  console.log('Client IP', client_ip, req.socket.remoteAddress);
 
   try {
     const geoResponse = await axios.get(`https://ipapi.co/${client_ip}/json/`);
